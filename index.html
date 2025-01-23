@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="https://rindkb2003.github.io/labor-booking-web-application/">
+    <title>Online Labour Booking</title>
+    <link rel="stylesheet" href="..\CSS files/index.css">
+    <link rel="stylesheet" href="..\CSS files/header.css">
+    <link rel="stylesheet" href="..\CSS files/footer.css">
+</head>
+<body>
+    <div class="header-placeholder"></div>
+    <div class="main-content">
+        <div class="banner">
+            <!-- Wrap each image with its own hyperlink -->
+            <a href="..\HTML files/Mason.html">
+                <img src="..\Images/mason.jpg" alt="Mason Slide">
+            </a>
+            <a href="..\HTML files/painter.html">
+                <img src="..\Images/painter.jpg" alt="Painter Slide">
+            </a>
+            <a href="..\HTML files/plumber.html" class="active">
+                <img src="..\Images/plumber.jpg" alt="Plumber Slide">
+            </a>
+            <a href="..\HTML files/electrician.html">
+                <img src="..\Images/electrician .jpg" alt="Electrician Slide">
+            </a>
+            <a href="..\HTML files/carpenter.html">
+                <img src="..\Images/carpanter.jpg" alt="Carpenter Slide">
+            </a>
+        </div>
+        <div class="content">
+            <p>User-friendly platform to search and hire skilled laborers for various tasks in Sanghar and nearby areas.</p>
+            <h1>Book Your Labor</h1>
+        </div>
+        <div class="sections">
+            <div class="section">
+                <img src="..\Images/plumber.svg" alt="Plumber">
+                <h3>Plumber</h3>
+                <p>Expert plumbers available for all your plumbing needs.</p>
+                <button><a href="..\HTML files/plumber.html">Book Now</a></button>
+            </div>
+            <div class="section">
+                <img src="..\Images/electrician.svg" alt="Electrician">
+                <h3>Electrician</h3>
+                <p>Skilled electricians for safe and efficient electrical work.</p>
+                <button><a href="..\HTML files/electrician.html">Book Now</a></button>
+            </div>
+            <div class="section">
+                <img src="..\Images/PAINTER.svg" alt="Painter">
+                <h3>Painter</h3>
+                <p>Professional painters for residential and commercial projects.</p>
+                <button><a href="..\HTML files/painter.html">Book Now</a></button>
+            </div>
+            <div class="section">
+                <img src="..\Images/carpenter.svg" alt="Carpenter">
+                <h3>Carpenter</h3>
+                <p>Experienced carpenters for all types of woodworking.</p>
+                <button><a href="..\HTML files/carpenter.html">Book Now</a></button>
+            </div>
+            <div class="section">
+                <img src="..\Images/mason copy.svg" alt="Mason">
+                <h3>Mason</h3>
+                <p>Skilled masons for construction and masonry work.</p>
+                <button><a href="..\HTML files/Mason.html">Book Now</a></button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.banner a');
+
+        function showSlide(index) {
+            slides.forEach((slide, i) => {
+                slide.querySelector('img').style.opacity = (i === index) ? '1' : '0'; // Control visibility
+                slide.style.display = (i === index) ? 'block' : 'none'; // Only show active slide
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length; // Move to the next slide
+            showSlide(currentSlide); // Show the new slide
+        }
+
+        // Initialize the slideshow by showing the first slide
+        showSlide(currentSlide);
+
+        // Automatically move to the next slide every 3 seconds
+        setInterval(nextSlide, 3000);
+    </script>
+
+    <div class="footer-placeholder"></div>
+    <script src="..\Java Script files/script.js"></script>
+</body>
+</html>
