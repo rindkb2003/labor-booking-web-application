@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Labor Booking System</title>
+    <link rel="stylesheet" type="text/css" href="../CSS%20files/login.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> 
+    <style>
+        /* Existing CSS */
+        .message, .error-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: none;
+            z-index: 1000;
+        }
+        .message {
+            background-color: #4CAF50;
+        }
+        .error-message {
+            background-color: #f44336;
+        }
+.how-to-use-btn {
+    position: absolute;
+    top: 35px; /* Position it consistently from the top */
+    right: 1px; /* Use smaller units for mobile compatibility */
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 14px; /* Slightly smaller font for mobile compatibility */
+    z-index: 1000; /* Ensure it stays on top */
+}
+
+/* Media query for larger screens (like laptops and desktops) */
+@media (min-width: 768px) {
+    .how-to-use-btn {
+        top: 120px; /* Adjusted for larger screens */
+        right: 415px; /* Adjusted for larger screens */
+        font-size: 22px; /* Larger font on desktop */
+    }
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Login</h2>
+        <form id="loginForm" action="../PHP%20files/login.php" method="post" autocomplete="off">
+            <input type="text" name="fakeusernameremembered" style="display:none">
+            <input type="password" name="fakepasswordremembered" style="display:none">
+            <label for="identifier">Email or Mobile Number</label>
+            <input type="text" id="identifier" name="identifier" required autocomplete="new-identifier">
+            <label for="password">Password</label>
+            <div class="password-container">
+                <input type="password" id="password" name="password" required autocomplete="new-password">
+                <span class="toggle-password" id="togglePassword"><i class="fas fa-eye"></i></span>
+            </div>
+            <input type="submit" value="Login">
+        </form>
+        <a class="signup-btn" href="Signuptype.html">Sign Up</a>
+    </div>
+    <div id="message" class="message">Login successful!</div>
+    <div id="errorMessage" class="error-message">Invalid email/mobile number or password</div>
+    
+    <!-- How to Use Button -->
+    <a href="how_to_use.html" class="how-to-use-btn">استعمال کرنے کا طریقہ</a>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const loginForm = document.getElementById('loginForm');
+            const message = document.getElementById('message');
+            const errorMessage = document.getElementById('errorMessage');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const togglePasswordIcon = togglePassword.querySelector('i');
+
+            // Toggle password visibility
+            togglePassword.addEventListener('click', function () {
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                // Toggle the icon
+                if (type === 'password') {
+                    togglePasswordIcon.classList.remove('fa-eye-slash');
+                    togglePasswordIcon.classList.add('fa-eye');
+                } else {
+                    togglePasswordIcon.classList.remove('fa-eye');
+                    togglePasswordIcon.classList.add('fa-eye-slash');
+                }
+            });
+
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+                const formData = new FormData(loginForm);
+                fetch(loginForm.action, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(result => {
+                    if (result.trim() === 'success') {
+                        message.style.display = 'block';
+                        setTimeout(function () {
+                            window.location.href = '../HTML%20files/Index.html';
+                        }, 1500);
+                    } else {
+                        errorMessage.style.display = 'block';
+                        setTimeout(function () {
+                            errorMessage.style.display = 'none';
+                            // Clear input fields
+                            document.getElementById('identifier').value = '';
+                            passwordInput.value = '';
+                        }, 2000); // Hide error message after 2 seconds
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

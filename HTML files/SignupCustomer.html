@@ -1,0 +1,135 @@
+
+<!DOCTYPE html> 
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Sign Up - Labor Booking System</title>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="899938082904-c8uimqli5ad1ksppo9eis1jl922egs4d.apps.googleusercontent.com">
+    <link rel="stylesheet" type="text/css" href="../CSS%20files/SignupCustomer.css">
+    <script>
+         function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            var id_token = googleUser.getAuthResponse().id_token;
+
+            // Send the ID token to your server for validation and login
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', '../PHP%20files/google_callback.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    // Redirect to homepage on successful login
+                    window.location.href = '../HTML%20files/index.html';
+                } else {
+                    alert('Failed to log in with Google.');
+                }
+            };
+            xhr.send('id_token=' + id_token);
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            var signupForm = document.getElementById('signupForm');
+            var successMessage = document.createElement('div');
+            var errorMessage = document.createElement('div');
+            
+            successMessage.className = 'success-message';
+            errorMessage.className = 'error-message';
+
+            signupForm.parentElement.insertBefore(successMessage, signupForm.nextSibling);
+            signupForm.parentElement.insertBefore(errorMessage, signupForm.nextSibling);
+
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission
+                var formData = new FormData(signupForm);
+
+                fetch(signupForm.action, {
+                    method: signupForm.method,
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        successMessage.textContent = data.message;
+                        successMessage.style.display = 'block';
+                        errorMessage.style.display = 'none';
+                        signupForm.reset();
+                        setTimeout(() => {
+                            window.location.href = '../HTML%20files/verify_otp.html';
+                        }, 1000); // Redirect to OTP page after 1 seconds
+                    } else {
+                        errorMessage.textContent = data.message;
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    errorMessage.textContent = 'An error occurred. Please try again later.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+            });
+        });
+
+        function previewImage() {
+            const file = document.getElementById('profile_image').files[0];
+            const preview = document.getElementById('imagePreview');
+            const reader = new FileReader();
+            reader.addEventListener("load", function () {
+                preview.src = reader.result;
+                preview.style.display = 'block';
+            }, false);
+
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
+     <style>
+           .success-message, .error-message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Customer Sign Up</h2>
+        <img id="imagePreview" class="image-preview" src="#" alt="Image Preview" style="display: none;">
+        <form id="signupForm" action="../PHP%20files/Signupcustomer.php" method="post" autocomplete="off" enctype="multipart/form-data">
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required autocomplete="off">
+            
+            <label for="address">Address</label>
+            <textarea id="address" name="address" rows="4" required autocomplete="off"></textarea>
+            
+            <label for="contact">Mobile Number or Email</label>
+            <input type="text" id="contact" name="contact" required autocomplete="new-contact">
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="new-password">
+            
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required autocomplete="off">
+            
+            <label for="profile_image">Upload Image</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*" required onchange="previewImage()">
+            
+            <input type="submit" value="Sign Up">
+        </form>
+        <div class="g-signin2" data-onsuccess="onSignIn" data-width="360" data-height="40"  data-longtitle="true"></div>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+</body>
+</html> 

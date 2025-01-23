@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - Labor Booking System</title>
+    <link rel="stylesheet" href="../CSS%20files/header.css">
+    <link rel="stylesheet" href="../CSS%20files/footer.css">
+    <link rel="stylesheet" href="../CSS%20files/FAQ.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const questions = document.querySelectorAll('.faq-section h3');
+            questions.forEach((question) => {
+                question.addEventListener('click', () => {
+                    const answer = question.nextElementSibling;
+                    answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="header-placeholder"></div>
+    <div class="main-content">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="faq-section">
+                <h3>What is the Labor Booking System?</h3>
+                <p>The Labor Booking System is an online platform designed to facilitate the hiring process for skilled laborers in various trades within District Sanghar.</p>
+            </div>
+            <div class="faq-section">
+                <h3>How do I sign up as a worker?</h3>
+                <p>To sign up as a worker, navigate to the Sign Up page, fill out the required information, and submit the form. You will need to provide details such as your name, contact information, skills, and upload necessary documents.</p>
+            </div>
+            <div class="faq-section">
+                <h3>How can I contact customer support?</h3>
+                <p>You can contact customer support by visiting the Contact Us page and filling out the form with your query or by emailing us directly at rindbaba2003@gmail.com.</p>
+            </div>
+            <div class="faq-section">
+                <h3>What types of workers can I hire through the platform?</h3>
+                <p>Our platform allows you to hire various types of workers including carpenters, electricians, painters, masons, and plumbers.</p>
+            </div>
+            <div class="faq-section">
+                <h3>Is there a fee to use the Labor Booking System?</h3>
+                <p>There are no registration fees for workers as well as customers.</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer-placeholder"></div>
+    <script src="../Java Script files/script.js"></script>
+</body>
+</html>

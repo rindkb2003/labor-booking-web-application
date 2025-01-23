@@ -1,0 +1,205 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account - Labor Booking System</title>
+    <link rel="stylesheet" href="../CSS%20files/header.css">
+    <link rel="stylesheet" href="../CSS%20files/footer.css">
+    <link rel="stylesheet" href="../CSS%20files/myaccount.css">
+    <style>
+        .image-preview {
+            width: 150px;
+            height: auto;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+  <div class="header-placeholder"></div>
+    <div class="container">
+        <h2>My Account</h2>
+        <form id="accountForm" method="POST" enctype="multipart/form-data">
+            <!-- Profile Image -->
+            <label for="profile_image">Profile Image</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*">
+            <img id="profileImagePreview" class="image-preview" src="#" alt="Profile Image Preview" style="display: none;">
+
+            <!-- Full Name -->
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+
+            <!-- Mobile Number -->
+            <label for="identifier">Email or Mobile Number</label>
+            <input type="text" id="identifier" name="identifier required>
+
+            <!-- Address -->
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required>
+
+            <!-- Worker Type (if worker) -->
+            <div id="workerTypeSection" class="hidden">
+                <label for="worker_type">Type of Worker</label>
+                <select id="worker_type" name="worker_type">
+                    <option value="carpenter">Carpenter</option>
+                    <option value="electrician">Electrician</option>
+                    <option value="plumber">Plumber</option>
+                    <option value="painter">Painter</option>
+                    <option value="mason">Mason</option>
+                </select>
+            </div>
+
+            <!-- Skills (if worker) -->
+            <div id="skillsSection" class="hidden">
+                <!-- Skill checkboxes will be dynamically added here -->
+            </div>
+
+            <!-- Experience (if worker) -->
+            <div id="experienceSection" class="hidden">
+                <label for="experience">Experience</label>
+                <textarea id="experience" name="experience"></textarea>
+            </div>
+
+            <!-- CNIC Images (if worker) -->
+            <div id="cnicImagesSection" class="hidden">
+                <label for="cnic_image_front">CNIC Front Image</label>
+                <input type="file" id="cnic_image_front" name="cnic_image_front" accept="image/*">
+                <img id="cnicImageFrontPreview" class="image-preview" src="#" alt="CNIC Front Image Preview" style="display: none;">
+
+                <label for="cnic_image_back">CNIC Back Image</label>
+                <input type="file" id="cnic_image_back" name="cnic_image_back" accept="image/*">
+                <img id="cnicImageBackPreview" class="image-preview" src="#" alt="CNIC Back Image Preview" style="display: none;">
+            </div>
+
+            <!-- Certificate (if worker) -->
+            <div id="certificateSection" class="hidden">
+                <label for="certificate_image">Certificate Image</label>
+                <input type="file" id="certificate_image" name="certificate_image" accept="image/*">
+                <img id="certificateImagePreview" class="image-preview" src="#" alt="Certificate Image Preview" style="display: none;">
+            </div>
+
+            <input type="submit" value="Update Profile">
+        </form>
+        <div class="feedback-message" id="feedbackMessage"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Fetch and populate user data
+            fetch('../PHP%20files/fetch_user_data.php')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        populateForm(data.data);
+                    } else {
+                        document.getElementById('feedbackMessage').textContent = data.message;
+                    }
+                })
+                .catch(error => console.error('Error fetching user data:', error));
+    
+            // Form submission
+            document.getElementById('accountForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+    
+                fetch('../PHP%20files/update_user_data.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text()) // First, get the raw text response
+                .then(text => {
+                    try {
+                        const data = JSON.parse(text); // Try parsing it as JSON
+                        document.getElementById('feedbackMessage').textContent = data.message;
+                    } catch (error) {
+                        console.error('Error updating user data:', error, 'Response:', text);
+                        document.getElementById('feedbackMessage').textContent = 'An error occurred while updating your profile. Please try again.';
+                    }
+                })
+                .catch(error => console.error('Error updating user data:', error));
+            });
+    
+            // Image preview handlers
+            document.getElementById('profile_image').addEventListener('change', function() {
+                previewImage(this, 'profileImagePreview');
+            });
+    
+            document.getElementById('cnic_image_front').addEventListener('change', function() {
+                previewImage(this, 'cnicImageFrontPreview');
+            });
+    
+            document.getElementById('cnic_image_back').addEventListener('change', function() {
+                previewImage(this, 'cnicImageBackPreview');
+            });
+    
+            document.getElementById('certificate_image').addEventListener('change', function() {
+                previewImage(this, 'certificateImagePreview');
+            });
+        });
+    
+        function previewImage(input, previewId) {
+            var preview = document.getElementById(previewId);
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    
+        function populateForm(data) {
+            const uploadsPath = '../uploads/';
+            
+            document.getElementById('fullname').value = data.fullname;
+            document.getElementById('identifier').value = data.mobile;
+            document.getElementById('address').value = data.address;
+    
+            if (data.profile_image) {
+                document.getElementById('profileImagePreview').src = uploadsPath + data.profile_image.split('/').pop();
+                document.getElementById('profileImagePreview').style.display = 'block';
+            }
+    
+            if (data.worker_type) {
+                document.getElementById('workerTypeSection').classList.remove('hidden');
+                document.getElementById('worker_type').value = data.worker_type;
+                populateSkills(data.skills); // Define this function based on your skills
+                document.getElementById('experienceSection').classList.remove('hidden');
+                document.getElementById('experience').value = data.experience;
+                document.getElementById('cnicImagesSection').classList.remove('hidden');
+                if (data.cnic_image_front) {
+                    document.getElementById('cnicImageFrontPreview').src = uploadsPath + data.cnic_image_front.split('/').pop();
+                    document.getElementById('cnicImageFrontPreview').style.display = 'block';
+                }
+                if (data.cnic_image_back) {
+                    document.getElementById('cnicImageBackPreview').src = uploadsPath + data.cnic_image_back.split('/').pop();
+                    document.getElementById('cnicImageBackPreview').style.display = 'block';
+                }
+                document.getElementById('certificateSection').classList.remove('hidden');
+                if (data.certificate_image) {
+                    document.getElementById('certificateImagePreview').src = uploadsPath + data.certificate_image.split('/').pop();
+                    document.getElementById('certificateImagePreview').style.display = 'block';
+                }
+            }
+        }
+    
+        function populateSkills(skills) {
+            // Populate skills checkboxes based on the skills data
+            const skillsArray = skills.split(',');
+            const skillsSection = document.getElementById('skillsSection');
+            skillsSection.classList.remove('hidden');
+            skillsArray.forEach(skill => {
+                let skillElement = document.createElement('label');
+                skillElement.innerHTML = `<input type="checkbox" name="skills[]" value="${skill.trim()}" checked> ${skill.trim()}`;
+                skillsSection.appendChild(skillElement);
+            });
+        }
+    </script>
+    <div class="footer-placeholder"></div> 
+    <script src="../Java Script files/script.js"></script>
+</body>
+</html>
+
+

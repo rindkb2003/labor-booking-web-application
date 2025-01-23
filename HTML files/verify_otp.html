@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify OTP - Labor Booking System</title>
+    <link rel="stylesheet" type="text/css" href="../CSS%20files/verify_otp.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+        var otpForm = document.getElementById('otpForm');
+        var successMessage = document.createElement('div');
+        var errorMessage = document.createElement('div');
+        
+        successMessage.className = 'success-message';
+        errorMessage.className = 'error-message';
+
+        otpForm.parentElement.insertBefore(successMessage, otpForm.nextSibling);
+        otpForm.parentElement.insertBefore(errorMessage, otpForm.nextSibling);
+
+        otpForm.addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+            var formData = new FormData(otpForm);
+
+            fetch(otpForm.action, {
+                method: otpForm.method,
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    successMessage.textContent = data.message;
+                    successMessage.style.display = 'block';
+                    errorMessage.style.display = 'none';
+                    setTimeout(() => {
+                        window.location.href = '../HTML%20files/login.html'; // Redirect to login page
+                    }, 3000); // Redirect after 3 seconds
+                } else {
+                    errorMessage.textContent = data.message;
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                errorMessage.textContent = 'An error occurred. Please try again later.';
+                errorMessage.style.display = 'block';
+                successMessage.style.display = 'none';
+            });
+        });
+    });
+
+    </script>
+    <style>
+        .success-message, .error-message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Verify OTP</h2>
+        <form id="otpForm" action="../PHP%20files/verify_otp.php" method="post">
+            <label for="otp">Enter OTP</label>
+            <input type="text" id="otp" name="otp" required autocomplete="off">
+            <input type="hidden" name="user_type" value="<?php echo $_SESSION['user_info']['user_type']; ?>" />
+            <input type="submit" value="Verify OTP">
+        </form>
+        <div class="login-link">
+            <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+    </div>
+</body>
+</html>

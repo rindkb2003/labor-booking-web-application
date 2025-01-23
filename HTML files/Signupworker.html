@@ -1,0 +1,328 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Worker Sign Up - Labor Booking System</title>
+    <link rel="stylesheet" type="text/css" href="../CSS%20files/Signupworker.css">
+    <style>
+    
+        /* Your custom styles can be added here */
+        .success-message, .error-message {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Worker Sign Up</h2>
+        <img id="profileImagePreview" class="image-preview" src="#" alt="Profile Image Preview" style="display: none;">
+        <form id="signupForm" action="../PHP%20files/signupworker.php" method="POST" autocomplete="off">
+            <input type="text" name="fakeusernameremembered" style="display:none">
+            <input type="password" name="fakepasswordremembered" style="display:none">
+            <!-- rest of your form fields -->
+            <label for="profile_image">Upload Profile Image</label>
+            <input type="file" id="profile_image" name="profile_image" accept="image/*" onchange="previewImage(this, 'profileImagePreview')" required>
+            <label for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="fullname" required>
+
+             <label for="mobile">Mobile Number or Email</label>
+            <input type="text" id="mobile" name="mobile" required autocomplete="new-mobile">
+            
+            <label for="address">Address</label>
+            <input type="text" id="address" name="address" required autocomplete="new-address">
+            
+            <label for="worker_type">Type of Worker</label>
+            <select id="worker_type" name="worker_type" required onchange="toggleSkillCategories()">
+                <option value="carpenter">Carpenter</option>
+                <option value="electrician">Electrician</option>
+                <option value="plumber">Plumber</option>
+                <option value="painter">Painter</option>
+                <option value="mason">Mason</option>
+            </select>
+            
+            <!-- Skills and Specializations -->
+            <label for="skills_specializations">Skills and Specializations</label>
+            
+            <!-- Carpenter Categories -->
+            <div id="carpenterCategories" class="hidden">
+                <input type="checkbox" id="doorInstallation" name="skills[]" value="Door Installation">
+                <label for="doorInstallation">Door Installation</label>
+                <input type="checkbox" id="kitchenInstallation" name="skills[]" value="Kitchen Installation or Repairing">
+                <label for="kitchenInstallation">Kitchen Installation or Repairing</label>
+                <input type="checkbox" id="lockInstallation" name="skills[]" value="Lock Installation or Repairing">
+                <label for="lockInstallation">Lock Installation or Repairing</label>
+                <input type="checkbox" id="windowInstallation" name="skills[]" value="Window Installation or Repairing">
+                <label for="windowInstallation">Window Installation or Repairing</label>
+                <input type="checkbox" id="furnitureRepairing" name="skills[]" value="Furniture Repairing or Renovation">
+                <label for="furnitureRepairing">Furniture Repairing or Renovation</label>
+                <input type="checkbox" id="sofaPolish" name="skills[]" value="Sofa Polish and Repair">
+                <label for="sofaPolish">Sofa Polish and Repair</label>
+                <input type="checkbox" id="carpenterOther" name="skills[]" value="Carpenter and Woodwork Other Services">
+                <label for="carpenterOther">Carpenter and Woodwork Other Services</label>
+            </div>
+            
+            <!-- Electrician Categories -->
+            <div id="electricianCategories" class="hidden">
+                <input type="checkbox" id="upsInstallation" name="skills[]" value="UPS Installation and Repairing">
+                <label for="upsInstallation">UPS Installation and Repairing</label>
+                <input type="checkbox" id="acInstallation" name="skills[]" value="AC Installation and Repairing">
+                <label for="acInstallation">AC Installation and Repairing</label>
+                <input type="checkbox" id="refrigeratorRepairing" name="skills[]" value="Refrigerator Repairing">
+                <label for="refrigeratorRepairing">Refrigerator Repairing</label>
+                <input type="checkbox" id="fanInstallation" name="skills[]" value="Fan Installation and Repairing">
+                <label for="fanInstallation">Fan Installation and Repairing</label>
+                <input type="checkbox" id="switchBoard" name="skills[]" value="Switch Board or Socket Installation or Repairing">
+                <label for="switchBoard">Switch Board or Socket Installation or Repairing</label>
+                <input type="checkbox" id="electricalWiring" name="skills[]" value="Electrical Wiring Installation or Repairing">
+                <label for="electricalWiring">Electrical Wiring Installation or Repairing</label>
+                <input type="checkbox" id="breakerInstallation" name="skills[]" value="Breaker Installation">
+                <label for="breakerInstallation">Breaker Installation</label>
+                <input type="checkbox" id="OtherElectricalServices" name="skills[]" value="Other Electrical Services">
+                <label for="OtherElectricalServices">Other Electrical Services</label>
+            </div>
+            
+            <!-- Plumber Categories -->
+            <div id="plumberCategories" class="hidden">
+                <input type="checkbox" id="generalPlumbing" name="skills[]" value="General Plumbing Repairs">
+                <label for="generalPlumbing">General Plumbing Repairs</label>
+                <input type="checkbox" id="bathroomPlumbing" name="skills[]" value="Bathroom Plumbing">
+                <label for="bathroomPlumbing">Bathroom Plumbing</label>
+                <input type="checkbox" id="kitchenPlumbing" name="skills[]" value="Kitchen Plumbing">
+                <label for="kitchenPlumbing">Kitchen Plumbing</label>
+                <input type="checkbox" id="waterMotor" name="skills[]" value="Water Motor Services">
+                <label for="waterMotor">Water Motor Services</label>
+                <input type="checkbox" id="waterPipe" name="skills[]" value="Water Pipe Installation or Repair">
+                <label for="waterPipe">Water Pipe Installation or Repair</label>
+                <input type="checkbox" id="commodeInstallation" name="skills[]" value="Commode Installation">
+                <label for="commodeInstallation">Commode Installation</label>
+                <input type="checkbox" id="washingMachine" name="skills[]" value="Automatic Washing Machine Repair & Installation">
+                <label for="washingMachine">Automatic Washing Machine Repair & Installation</label>
+            </div>
+            
+            <!-- Painter Categories -->
+            <div id="painterCategories" class="hidden">
+                <input type="checkbox" id="generalPainter" name="skills[]" value="General Painter Services">
+                <label for="generalPainter">General Painter Services</label>
+                <input type="checkbox" id="wallpaperInstallation" name="skills[]" value="Wallpaper Installation Service">
+                <label for="wallpaperInstallation">Wallpaper Installation Service</label>
+                <input type="checkbox" id="falseCeiling" name="skills[]" value="False Ceiling Installation or Repairing">
+                <label for="falseCeiling">False Ceiling Installation or Repairing</label>
+                <input type="checkbox" id="furniturePolish" name="skills[]" value="Furniture and Wood Polish">
+                <label for="furniturePolish">Furniture and Wood Polish</label>
+                <input type="checkbox" id="decoPaint" name="skills[]" value="Deco Paint">
+                <label for="decoPaint">Deco Paint</label>
+                <input type="checkbox" id="decorateOther" name="skills[]" value="Decorate Other Services">
+                <label for="decorateOther">Decorate Other Services</label>
+            </div>
+            
+            <!-- Mason Categories -->
+            <div id="masonCategories" class="hidden">
+                <input type="checkbox" id="generalMason" name="skills[]" value="General Mason Services">
+                <label for="generalMason">Mason ServiceGeneral s</label>
+                <input type="checkbox" id="brickwork" name="skills[]" value="Brickwork">
+                <label for="brickwork">Brickwork</label>
+                <input type="checkbox" id="plastering" name="skills[]" value="Plastering">
+                <label for="plastering">Plastering</label>
+                <input type="checkbox" id="tiling" name="skills[]" value="Tiling">
+                <label for="tiling">Tiling</label>
+                <input type="checkbox" id="concreteWork" name="skills[]" value="Concrete Work">
+                <label for="concreteWork">Concrete Work</label>
+                <input type="checkbox" id="foundationRepair" name="skills[]" value="Foundation Repair">
+                <label for="foundationRepair">Foundation Repair</label>
+                <input type="checkbox" id="roofing" name="skills[]" value="Roofing">
+                <label for="roofing">Roofing</label>
+            </div>
+            
+            <label for="experience">Experience</label>
+            <textarea id="experience" name="experience" required autocomplete="off"></textarea>
+            <div id="experience-section">
+                <div class="experience-entry">
+                    <label>Experience in Years</label>
+                    <input type="number" name="experience_years[]" required>
+        
+                    <label>Company/Address</label>
+                    <input type="text" name="experience_address[]" required>
+                </div>
+            </div>
+        
+            <!-- Button to add more experience fields -->
+            <button type="button" onclick="addExperience()">+ Add Another Experience</button>
+            
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required autocomplete="new-password">
+            
+            <label for="confirm_password">Confirm Password</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
+            
+            <label for="cnic_image_front">Upload CNIC Front Image</label>
+            <input type="file" id="cnic_image_front" name="cnic_image_front" accept="image/*" onchange="previewImage(this, 'cnicImageFrontPreview')" required>
+            <img id="cnicImageFrontPreview" class="cnic-preview" src="#" alt="CNIC Front Image Preview" style="display: none;">
+            
+            <label for="cnic_image_back">Upload CNIC Back Image</label>
+            <input type="file" id="cnic_image_back" name="cnic_image_back" accept="image/*" onchange="previewImage(this, 'cnicImageBackPreview')" required>
+            <img id="cnicImageBackPreview" class="cnic-preview" src="#" alt="CNIC Back Image Preview" style="display: none;">
+            
+            <label>Do you have a Certificate?</label>
+            <input type="radio" id="certificate_yes" name="certificate" value="yes" onclick="toggleCertificateUpload()">
+            <label for="certificate_yes">Yes</label>
+            <input type="radio" id="certificate_no" name="certificate" value="no" onclick="toggleCertificateUpload()" checked>
+            <label for="certificate_no">No</label>
+            
+            <div id="certificateUploadSection" class="hidden">
+                <label for="certificate_image">Upload Certificate Image</label>
+                <input type="file" id="certificate_image" name="certificate_image" accept="image/*" onchange="previewImage(this, 'certificateImagePreview')">
+                <img id="certificateImagePreview" class="image-preview" src="#" alt="Certificate Image Preview" style="display: none;">
+            </div>
+            
+            <input type="submit" value="Sign Up">
+        </form>
+            <div class="login-link">
+             <p>Already have an account? <a href="login.html">Login</a></p>
+           </div>
+    </div> 
+    
+    <!-- JavaScript placed at the end of body or using defer attribute -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var signupForm = document.getElementById('signupForm');
+            var successMessage = document.createElement('div');
+            var errorMessage = document.createElement('div');
+    
+            successMessage.className = 'success-message';
+            errorMessage.className = 'error-message';
+    
+            // Insert success and error messages after the signup form
+            signupForm.parentElement.insertBefore(successMessage, signupForm.nextSibling);
+            signupForm.parentElement.insertBefore(errorMessage, signupForm.nextSibling);
+    
+            // Ensure the form is reset on page load
+            signupForm.reset();
+    
+            // Form submission event listener
+            signupForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission
+                var formData = new FormData(signupForm);
+    
+                fetch(signupForm.action, {
+                    method: signupForm.method,
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        successMessage.textContent = data.message;
+                        successMessage.style.display = 'block';
+                        errorMessage.style.display = 'none';
+                        signupForm.reset();
+                        setTimeout(() => {
+                            window.location.href = '../HTML%20files/verify_otp.html';
+                        }, 1000); // Redirect to OTP page after 1 second
+                    } else {
+                        errorMessage.textContent = data.message;
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    errorMessage.textContent = 'An error occurred. Please try again later.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                });
+            });
+    
+            // Function to add a new experience entry
+            window.addExperience = function () {
+                const experienceSection = document.getElementById('experience-section');
+                const newExperience = document.createElement('div');
+                newExperience.className = 'experience-entry';
+                
+                newExperience.innerHTML = `
+                    <label>Experience in Years</label>
+                    <input type="number" name="experience_years[]" required>
+                    <label>Company/Address</label>
+                    <input type="text" name="experience_address[]" required>
+                `;
+                experienceSection.appendChild(newExperience);
+            };
+    
+            // Function to preview an image
+            window.previewImage = function (input, previewId) {
+                const file = input.files[0];
+                const preview = document.getElementById(previewId);
+                const reader = new FileReader();
+    
+                reader.addEventListener("load", function () {
+                    preview.src = reader.result;
+                    preview.style.display = "block";
+                }, false);
+    
+                if (file) {
+                    reader.readAsDataURL(file);
+                }
+            };
+    
+            // Function to toggle certificate upload section
+            window.toggleCertificateUpload = function () {
+                const certificateSection = document.getElementById('certificateUploadSection');
+                const certificateYes = document.getElementById('certificate_yes');
+    
+                certificateSection.style.display = certificateYes.checked ? 'block' : 'none';
+            };
+    
+            // Function to toggle skill categories based on worker type
+            window.toggleSkillCategories = function () {
+                const workerType = document.getElementById('worker_type').value;
+                const categories = {
+                    carpenter: 'carpenterCategories',
+                    electrician: 'electricianCategories',
+                    plumber: 'plumberCategories',
+                    painter: 'painterCategories',
+                    mason: 'masonCategories'
+                };
+    
+                for (const key in categories) {
+                    document.getElementById(categories[key]).style.display = 'none';
+                }
+    
+                if (categories[workerType]) {
+                    document.getElementById(categories[workerType]).style.display = 'block';
+                }
+            };
+        });
+    
+        /* Commented out password validation code
+        document.getElementById('signupForm').addEventListener('submit', function(event) {
+            var password = document.getElementById('password').value;
+            var confirmPassword = document.getElementById('confirm_password').value;
+    
+            if (password !== confirmPassword) {
+                alert('Passwords do not match');
+                event.preventDefault();
+            }
+    
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long');
+                event.preventDefault();
+            }
+        });
+        */
+    </script>
+    
+</body>
+</html>

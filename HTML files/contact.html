@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Labor Booking System</title>
+    <link rel="stylesheet" href="../CSS%20files/header.css">
+    <link rel="stylesheet" href="../CSS%20files/footer.css">
+    <link rel="stylesheet" href="../CSS%20files/contact.css">
+
+       
+</head>
+<body>
+    <div class="header-placeholder"></div>
+    <div class="main-content">
+        <div class="container">
+            <h2>Contact Us</h2>
+            <div class="success-message" id="success-message"></div>
+            <div class="error-message" id="error-message"></div>
+            <form id="contact-form" action="../PHP%20files/contact.php" method="post">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="contact">Email or Mobile</label>
+                <input type="text" id="contact" name="contact" required pattern="(\d{11})|(\S+@\S+\.\S+)" title="Enter a valid email or an 11-digit mobile number">
+
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" required></textarea>
+
+                <input type="submit" value="Send Message">
+            </form>
+        </div>
+    </div>
+    <div class="footer-placeholder"></div>
+    <script src="../Java%20Script%20files/script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var contactForm = document.getElementById('contact-form');
+            var successMessage = document.getElementById('success-message');
+            var errorMessage = document.getElementById('error-message');
+
+            contactForm.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent form submission
+                var formData = new FormData(contactForm);
+
+                fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        successMessage.textContent = data.message;
+                        successMessage.style.display = 'block';
+                        errorMessage.style.display = 'none';
+                        contactForm.reset();
+                        setTimeout(function () {
+                            successMessage.style.display = 'none';
+                        }, 5000); // Hide success message after 5 seconds
+                    } else {
+                        errorMessage.textContent = data.message;
+                        errorMessage.style.display = 'block';
+                        successMessage.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    errorMessage.textContent = 'An error occurred. Please try again later.';
+                    errorMessage.style.display = 'block';
+                    successMessage.style.display = 'none';
+                    console.error('Error:', error);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

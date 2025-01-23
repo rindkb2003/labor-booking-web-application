@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <link rel="stylesheet" type="text/css" href="../CSS%20files/style.css"> 
+    <style>
+        .chat-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            padding: 20px;
+        }
+        .message {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .message img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+        .message .text {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .message.customer .text {
+            background: #d1f1d1;
+        }
+        .message.worker .text {
+            background: #d1d1f1;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chat-messages"></div>
+        <textarea id="message-input" placeholder="Type your message..."></textarea>
+        <button id="send-button">Send</button>
+    </div>
+
+    <script>
+        document.getElementById('send-button').addEventListener('click', function() {
+            var messageInput = document.getElementById('message-input');
+            var message = messageInput.value;
+            if (message.trim() !== '') {
+                sendMessage(message);
+                messageInput.value = '';
+            }
+        });
+
+        function sendMessage(message) {
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'send_message.php', true);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    // Append the new message to the chat
+                    var chatMessages = document.getElementById('chat-messages');
+                    chatMessages.insertAdjacentHTML('afterbegin', this.responseText);
+                }
+            };
+            xhr.send('message=' + message);
+        }
+
+        function fetchMessages() {
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'fetch_messages.php', true);
+            xhr.onload = function() {
+                if (this.status == 200) {
+                    document.getElementById('chat-messages').innerHTML = this.responseText;
+                }
+            };
+            xhr.send();
+        }
+
+        setInterval(fetchMessages, 5000); // Fetch new messages every 5 seconds
+        fetchMessages(); // Initial fetch
+    </script>
+</body>
+</html>
