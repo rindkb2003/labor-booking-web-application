@@ -1,0 +1,91 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #bae7e0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.success-message,
+.error-message {
+    text-align: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+.success-message {
+    color: #4CAF50;
+    background-color: #d4edda;
+}
+
+.error-message {
+    color: #f44336;
+    background-color: #f8d7da;
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 100%;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+        margin: 0px auto;
+    }
+
+    input[type="submit"] {
+        padding: 10px;
+    }
+}

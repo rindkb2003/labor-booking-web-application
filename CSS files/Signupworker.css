@@ -1,0 +1,162 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body and Background */
+body {
+    font-family: Arial, sans-serif;
+    /*background-image: url('/Development/Images/bg1.jpg');  Path to your background image */
+    background-color: #b2ebb4;
+    background-size: cover; /* Ensure the image covers the entire page */
+    background-position: center; /* Center the background image */
+    background-attachment: fixed; /* Keep background image fixed while scrolling */
+    margin: 0;
+    padding: 0;
+}
+
+/* Container Styles */
+.container {
+    width: 50%;
+    margin: 50px auto;
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white background */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Form Labels and Inputs */
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="file"],
+input[type="submit"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Submit Button */
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Image Previews */
+.image-preview {
+    display: block;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 20px auto;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.cnic-preview {
+    width: 300px;
+    height: 150px;
+    object-fit: cover;
+    margin: 10px auto;
+    display: block;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+}
+
+/* Skills Checkbox */
+form .skills-checkbox {
+    margin: 5px 0;
+}
+
+/* Login Link */
+.login-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.login-link a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .container {
+        width: 70%;
+        margin: 40px auto;
+        padding: 15px;
+    }
+
+    input[type="submit"] {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .cnic-preview {
+        width: 250px;
+        height: 125px;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        width: 90%;
+        margin: 30px auto;
+        padding: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .cnic-preview {
+        width: 200px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        margin: 20px auto;
+        padding: 10px;
+    }
+
+    input[type="submit"] {
+        padding: 8px;
+        font-size: 12px;
+    }
+
+    .cnic-preview {
+        width: 150px;
+        height: 75px;
+    }
+}

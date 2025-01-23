@@ -1,0 +1,92 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #70b6b0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Container Styles */
+.container {
+    width: 90%; /* Adjusted for smaller screens */
+    max-width: 1200px; /* Maximum width for larger screens */
+    margin: 30px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Title Styles */
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.8rem; /* Relative size for scaling */
+}
+
+/* FAQ Section Styles */
+.faq-section {
+    margin-bottom: 20px;
+}
+
+.faq-section h3 {
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    padding: 15px; /* Larger padding for easier tapping */
+    border-radius: 4px;
+    font-size: 1.2rem; /* Adjusted for better readability */
+    transition: background-color 0.3s;
+}
+
+.faq-section h3:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.faq-section p {
+    display: none;
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    margin-top: 10px;
+    font-size: 1rem; /* Responsive font size */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    h2 {
+        font-size: 1.5rem; /* Reduce size for smaller screens */
+    }
+
+    .container {
+        width: 95%; /* Make it take more width on small screens */
+    }
+
+    .faq-section h3 {
+        font-size: 1.1rem;
+        padding: 10px; /* Reduce padding for smaller screens */
+    }
+
+    .faq-section p {
+        font-size: 0.9rem; /* Slightly smaller for mobile devices */
+    }
+}
+
+@media (max-width: 480px) {
+    h2 {
+        font-size: 1.3rem; /* Further reduce for very small screens */
+    }
+
+    .faq-section h3 {
+        font-size: 1rem;
+        padding: 8px;
+    }
+
+    .faq-section p {
+        font-size: 0.85rem;
+    }
+}

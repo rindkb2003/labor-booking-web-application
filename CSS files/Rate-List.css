@@ -1,0 +1,60 @@
+body{
+    background-color: #bae7e0;
+}
+
+.container{
+    margin-top: 40px;
+    text-align: center;
+    margin-bottom: 90px;
+    
+}
+.container h2{
+    font-size: 30px;
+}
+
+.rate-list-table-container {
+    overflow-x: auto; /* Adds horizontal scrolling for smaller screens */
+    margin: 20px 0;
+
+}
+
+.rate-list-table {
+    margin-top: 30px;
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+    min-width: 600px; /* Ensures table does not shrink too small */
+}
+
+.rate-list-table th, .rate-list-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.rate-list-table th {
+    background-color: #007bff;
+    color: white;
+}
+
+.rate-list-table td {
+    background-color: #f9f9f9;
+}
+
+.rate-list-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .rate-list-table th, .rate-list-table td {
+        padding: 8px; /* Reduce padding on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .rate-list-table th, .rate-list-table td {
+        padding: 6px; /* Further reduce padding for mobile */
+        font-size: 14px; /* Adjust font size for readability */
+    }
+}

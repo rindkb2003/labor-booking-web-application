@@ -1,0 +1,236 @@
+/* Add these styles to ensure the profile section starts below the header */
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Fix */
+header {
+    position: fixed; /* Keeps the header at the top of the viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: #007bff;
+    z-index: 1000; /* Make sure the header stays above other elements */
+}
+
+/* Profile container padding to ensure it's below the header */
+.profile-container {
+    padding-top: 80px; /* Add enough space to account for the fixed header */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+    
+}
+
+.profile-card {
+    border: 1px solid #0a0606;
+    border-radius: 5px;
+    margin: 40px;
+    padding: 40px;
+    width: 300px;
+    text-align: center;
+    position: relative;
+    background-color: #f9f9f9;
+}
+
+.profile-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 60%;
+    object-fit:cover;
+}
+
+.profile-card h3 {
+    margin: 10px 0 5px;
+}
+
+.profile-card p {
+    margin: 5px 0;
+}
+
+.availability-toggle {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #f1f1f1;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.availability-checkbox {
+    display: none;
+  
+}
+
+.contact-button {
+    margin-top: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    display: block; /* Ensures the button is displayed as a block element */
+    margin-top: 20px; /* Adds space between the rating bar and the contact button */
+}
+/* Read More Button Styles */
+.read-more-button {
+    position: absolute;
+    bottom: 140px;
+    left: 220px;
+    display: inline-block; /* Makes the button fit its content */
+    background-color: #007bff; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    padding: 2px 5px; /* Padding inside the button */
+    font-size: 12px; /* Font size */
+    border-radius: 1px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor on hover */
+    text-align: center; /* Center text */
+    text-decoration: none; /* Remove underline for link */
+    transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+/* Hover effect for the button */
+.read-more-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+
+.availability-toggle.not-available {
+    background-color: #f44336;
+    color: white;
+}
+/* Rating stars */
+.rating-view-only {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.rating-view-only .star {
+    font-size: 24px;
+    color: #ccc;
+    padding: 0 2px;
+}
+
+.rating-view-only .star.filled {
+    color: #f5b301; /* Golden color for filled stars */
+}
+
+
+
+/* Media queries for responsiveness */
+@media (max-width: 1024px) {
+    .profile-card {
+        width: 45%;
+        margin: 10px 5px;
+        padding: 20px;
+    }
+    
+    .profile-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .availability-toggle {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    .contact-button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 768px) {
+    .profile-card {
+        width: 100%;
+        margin: 10px 0;
+        padding: 20px;
+    }
+    
+    .profile-card img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .availability-toggle {
+        padding: 5px;
+        font-size: 10px;
+    }
+
+    .contact-button {
+        font-size: 12px;
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-card {
+        width: 100%;
+        margin: 10px 0;
+        padding: 15px;
+    }
+
+    .profile-card img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .profile-card h3 {
+        font-size: 20px;
+    }
+
+    .profile-card p {
+        font-size: 14px;
+    } 
+    .availability-toggle {
+    position: absolute;
+    bottom: 45px;
+    right: 14px;
+    background-color: #f1f1f1;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    font-size: 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    }
+
+    .contact-button {
+        font-size: 12px;
+        padding: 8px;
+    }
+    .read-more-button {
+        position: absolute;
+        bottom: 105px;
+        left: 220px;
+        display: inline-block; /* Makes the button fit its content */
+        background-color: #007bff; /* Button color */
+        color: white; /* Text color */
+        border: none; /* No border */
+        padding: 2px 5px; /* Padding inside the button */
+        font-size: 12px; /* Font size */
+        border-radius: 1px; /* Rounded corners */
+        cursor: pointer; /* Pointer cursor on hover */
+        text-align: center; /* Center text */
+        text-decoration: none; /* Remove underline for link */
+        transition: background-color 0.3s; /* Smooth background color transition */
+    }
+    
+}

@@ -1,0 +1,109 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header Specific Styles */
+header {
+    height: 60px;
+    background: #007bff; /* Dark blue background for navbar */
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; /* Align all items to the left */
+    position: relative;
+    z-index: 10; /* Higher z-index to appear on top */
+    /* Adding box-shadow for better visibility */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+header .logo {
+    display: flex;
+    align-items: center;
+    margin-right: 20px; /* Add spacing between the logo and the menu icon */
+}
+
+header .logo img {
+    height: 40px; /* Adjust logo size */
+    width: auto;
+}
+
+header nav {
+    flex-grow: 0;
+    margin-left: 800px;
+}
+
+header nav ul {
+    list-style: none;
+    display: flex; /* Always display on larger screens */
+}
+
+header nav ul li {
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    color: #fff;
+    background-color: #007bff;
+    font-family: sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+    display: block; /* Ensure it takes full width of the container */
+    width: 100%; /* Ensure it takes the full width of the container */
+}
+
+header nav ul li a:hover {
+    background-color: #0056b3;
+}
+
+/* Menu Icon for Smaller Screens */
+.menu-icon {
+    display: none;
+    font-size: 28px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: auto; /* Position menu icon to the left of the header */
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    header nav ul {
+        display: none; /* Hide menu on smaller screens */
+        flex-direction: column;
+        align-items: flex-start;
+        background: #007bff;
+        position:absolute;
+        top: 60px;
+        left:0;
+        width: 30%; /* Full-width menu on mobile */
+        padding: 0px;
+        margin-left: 70%;
+    }
+
+    header nav ul.show {
+        display: flex; /* Show menu when toggled */
+    }
+    header nav ul li {
+        width: 100%; /* Ensure each list item takes the full width */
+        border-bottom: 1px solid #0056b3; /* Optional: add a border between items */
+    }
+
+    header nav ul li a {
+        padding: 15px 20px; /* Increase padding for better touch experience */
+    }
+
+    .menu-icon {
+        display: block; /* Show menu icon on smaller screens */
+    }
+    header nav {
+        flex-grow: 0;
+        margin-left: 8px;
+    }
+    
+}
+
