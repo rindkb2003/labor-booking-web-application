@@ -21,7 +21,7 @@ This is a fully functional frontend for a Labor Booking System, designed with HT
 5. Appliance Repair – Fixing household appliances such as refrigerators, washing machines, etc.
 
  How to Use:
-1. Download or purchase the frontend package.
+1. Download  the frontend package.
 2. Open the `index.html` file in any browser to view the demo.
 3. The code is ready to be integrated with your backend for full functionality.
 
