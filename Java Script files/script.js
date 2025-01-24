@@ -3,7 +3,7 @@ function loadHeader() {
     const headerElement = document.createElement('header');
     headerElement.innerHTML = `
         <div class="logo">
-           <img src="../Images/logo.png" alt="Logo">
+           <img src="/labor-booking-web-application/Images/logo.png" alt="Logo">
         </div>
         <div class="menu-icon" id="menuIcon">&#x2630;</div> <!-- Menu icon (hamburger) -->
         <nav>
@@ -26,7 +26,7 @@ function loadFooter() {
     footerElement.innerHTML = `
         <div class="footer-content">
             <div class="footer-logo">
-              <img src="../Images/logo.png" alt="Logo">
+              <img src="/labor-booking-web-application/Images/logo.png" alt="Logo">
             </div>
             <div class="footer-social">
                 <a href="..\HTML files/FAQ.html" target="_blank" aria-label="FAQ">
